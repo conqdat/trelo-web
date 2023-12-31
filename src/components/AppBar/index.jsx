@@ -13,11 +13,11 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import Tooltip from '@mui/material/Tooltip'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import Profile from './Menus/Profile'
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 function AppBar() {
   return (
     <Box
-      px={2}
       sx={{
         height: (theme) => theme.trelloCustom.appBarHeight,
         width: '100%',
@@ -25,7 +25,8 @@ function AppBar() {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap2: 2,
-        overflow: 'auto'
+        overflow: 'auto',
+        paddingX: 2
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -53,7 +54,9 @@ function AppBar() {
           <Recent />
           <Starred />
           <Templates />
-          <Button variant="outlined">Create</Button>
+          <Button variant="outlined" startIcon={<AddCircleOutlineIcon />}>
+            Create
+          </Button>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
