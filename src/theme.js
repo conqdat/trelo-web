@@ -58,6 +58,15 @@ const theme = extendTheme({
           fontSize: '0.875 rem'
         }
       }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          '&.MuiTypography-h6': {
+            fontSize: '0.875rem'
+          }
+        }
+      }
     }
   }
 })

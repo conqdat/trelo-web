@@ -20,6 +20,9 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+import GroupIcon from '@mui/icons-material/Group'
+import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
+import AttachmentIcon from '@mui/icons-material/Attachment'
 
 const COLUM_HEADR_HEIGHT = '40px'
 const COLUM_FOOTER_HEIGHT = '56px'
@@ -38,147 +41,272 @@ function BoarContent() {
       sx={{
         width: '100%',
         height: (theme) => theme.trelloCustom.boardContentHeight,
-        backgroundColor: 'primary.main',
-        display: 'flex'
-        // alignItems: 'center'
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark' ? '#33495e' : '#1976d2', //
+        p: '10px 0'
       }}
     >
       <Box
         sx={{
-          minWidth: '300px',
-          minHeight: '300px',
-          bgcolor: (theme) =>
-            theme.palette.mode === 'dark' ? '#333' : '#ebecf0',
-          ml: 2,
-          borderRadius: '6px'
+          bgcolor: 'inherit',
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          overflowX: 'auto',
+          overflowY: 'hidden'
         }}
       >
         <Box
           sx={{
-            height: COLUM_HEADR_HEIGHT,
-            p: 2,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
+            minWidth: '300px',
+            minHeight: '300px',
+            bgcolor: (theme) =>
+              theme.palette.mode === 'dark' ? '#333' : '#ebecf0',
+            ml: 2,
+            borderRadius: '6px',
+            height: 'fit-content',
+            maxHeight: (theme) =>
+              `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(
+                5
+              )})`
           }}
         >
-          <Typography variant="h6" sx={{}}>
-            Colunm title
-          </Typography>
-          <Box>
-            <Tooltip title="Show Menu">
-              {' '}
-              <ExpandMoreIcon
-                sx={{ color: 'text.prmary', cursor: 'pointer' }}
-                id="basic-button-dropdown"
-                aria-controls={open ? 'basic-menu-workspaces' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
-              />
-            </Tooltip>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                'aria-labelledby': 'basic-button-dropdown'
+          {/* Hearder  */}
+          <Box
+            sx={{
+              height: COLUM_HEADR_HEIGHT,
+              p: '0 5px',
+              m: '0 5px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                cursor: 'pointer'
               }}
             >
-              <MenuItem>
-                <ListItemIcon>
-                  <AddBoxIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Add New</ListItemText>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <ContentCut fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Cut</ListItemText>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <ContentCopy fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Copy</ListItemText>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <ContentPaste fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Paste</ListItemText>
-              </MenuItem>
-              <Divider />
-              <MenuItem>
-                <ListItemIcon>
-                  <DeleteForeverIcon>
+              Colunm title
+            </Typography>
+            <Box>
+              <Tooltip title="Show Menu">
+                {' '}
+                <ExpandMoreIcon
+                  sx={{ color: 'text.prmary', cursor: 'pointer' }}
+                  id="basic-button-dropdown"
+                  aria-controls={open ? 'basic-menu-workspaces' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                />
+              </Tooltip>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button-dropdown'
+                }}
+              >
+                <MenuItem>
+                  <ListItemIcon>
+                    <AddBoxIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Add New</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <ContentCut fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Cut</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <ContentCopy fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Copy</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <ContentPaste fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Paste</ListItemText>
+                </MenuItem>
+                <Divider />
+                <MenuItem>
+                  <ListItemIcon>
+                    <DeleteForeverIcon>
+                      <Cloud fontSize="small" />
+                    </DeleteForeverIcon>
+                  </ListItemIcon>
+                  <ListItemText>Remove column</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
                     <Cloud fontSize="small" />
-                  </DeleteForeverIcon>
-                </ListItemIcon>
-                <ListItemText>Remove column</ListItemText>
-              </MenuItem>
-              <MenuItem>
-                <ListItemIcon>
-                  <Cloud fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Web Clipboard</ListItemText>
-              </MenuItem>
-            </Menu>
+                  </ListItemIcon>
+                  <ListItemText>Web Clipboard</ListItemText>
+                </MenuItem>
+              </Menu>
+            </Box>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1,
-            p: 2
-          }}
-        >
-          <Card
-            sx={{ cursor: 'pointer', boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)' }}
+          {/* Content */}
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
+              overflowX: 'hidden',
+              overflowY: 'auto',
+              maxHeight: (theme) =>
+                `calc(${
+                  theme.trelloCustom.boardContentHeight
+                } - ${theme.spacing(
+                  5
+                )} - ${COLUM_HEADR_HEIGHT} - ${COLUM_FOOTER_HEIGHT})`,
+              '&::-webkit-scrollbar-thumb': {
+                backgroundColor: '#ced0da'
+              },
+              '&::-webkit-scrollbar-thumb:hover': {
+                backgroundColor: '#ced0da',
+                borderRadius: '8px'
+              }
+            }}
           >
-            <CardMedia
-              sx={{ height: 140 }}
-              image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-              title="green iguana"
-            />
-            <CardContent sx={{ p: 1.5 }}>
-              <Typography>Lizard</Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-          <Card
-            sx={{ cursor: 'pointer', boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)' }}
+            <Card
+              sx={{
+                cursor: 'pointer',
+                boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
+                overflow: 'unset'
+              }}
+            >
+              <CardMedia
+                sx={{ height: 140 }}
+                image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
+                title="green iguana"
+              />
+              <CardContent sx={{ p: 1.5 }}>
+                <Typography>Lizard</Typography>
+              </CardContent>
+              <CardActions sx={{ p: '0 4px 8px 4px' }}>
+                <Button size="small" startIcon={<GroupIcon />}>
+                  20
+                </Button>
+                <Button size="small" startIcon={<ChatBubbleIcon />}>
+                  12
+                </Button>
+                <Button size="small" startIcon={<AttachmentIcon />}>
+                  3
+                </Button>
+              </CardActions>
+            </Card>
+            <Card
+              sx={{
+                cursor: 'pointer',
+                boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
+                overflow: 'unset'
+              }}
+            >
+              <CardContent sx={{ p: 1.5 }}>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+            <Card
+              sx={{
+                cursor: 'pointer',
+                boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
+                overflow: 'unset'
+              }}
+            >
+              <CardContent sx={{ p: 1.5 }}>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>{' '}
+            <Card
+              sx={{
+                cursor: 'pointer',
+                boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
+                overflow: 'unset'
+              }}
+            >
+              <CardContent sx={{ p: 1.5 }}>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>{' '}
+            <Card
+              sx={{
+                cursor: 'pointer',
+                boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
+                overflow: 'unset'
+              }}
+            >
+              <CardContent sx={{ p: 1.5 }}>
+                <Typography gutterBottom component="div">
+                  Lizard
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>{' '}
+            <Card
+              sx={{
+                cursor: 'pointer',
+                boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
+                overflow: 'unset'
+              }}
+            >
+              <CardContent sx={{ p: 1.5 }}>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Share</Button>
+                <Button size="small">Learn More</Button>
+              </CardActions>
+            </Card>
+          </Box>
+
+          {/* Footer */}
+          <Box
+            sx={{
+              height: COLUM_FOOTER_HEIGHT,
+              p: 2, // 16px
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
           >
-            <CardContent sx={{ p: 1.5 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                Lizard
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button size="small">Share</Button>
-              <Button size="small">Learn More</Button>
-            </CardActions>
-          </Card>
-        </Box>
-        <Box
-          sx={{
-            height: COLUM_FOOTER_HEIGHT,
-            p: 2, // 16px
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}
-        >
-          <Button startIcon={<AddBoxIcon />}>Add card</Button>
-          <Tooltip title="Drap to move">
-            <DragHandleIcon sx={{ cursor: 'pointer' }} />
-          </Tooltip>
+            <Button startIcon={<AddBoxIcon />}>Add card</Button>
+            <Tooltip title="Drap to move">
+              <DragHandleIcon sx={{ cursor: 'pointer' }} />
+            </Tooltip>
+          </Box>
         </Box>
       </Box>
     </Box>
