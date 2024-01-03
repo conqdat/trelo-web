@@ -16,15 +16,7 @@ import Tooltip from '@mui/material/Tooltip'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
-import Card from '@mui/material/Card'
-import CardActions from '@mui/material/CardActions'
-import CardContent from '@mui/material/CardContent'
-import CardMedia from '@mui/material/CardMedia'
-import GroupIcon from '@mui/icons-material/Group'
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
-import AttachmentIcon from '@mui/icons-material/Attachment'
-const COLUM_HEADR_HEIGHT = '40px'
-const COLUM_FOOTER_HEIGHT = '56px'
+import ListCards from './ListCards/ListCards'
 
 function Column() {
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -53,7 +45,7 @@ function Column() {
       {/* Hearder  */}
       <Box
         sx={{
-          height: COLUM_HEADR_HEIGHT,
+          height: (theme) => theme.trelloCustom.columnHeaderHeight,
           p: '0 5px',
           m: '0 5px',
           display: 'flex',
@@ -134,145 +126,14 @@ function Column() {
           </Menu>
         </Box>
       </Box>
-      {/* Content */}
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 1,
-          overflowX: 'hidden',
-          overflowY: 'auto',
-          maxHeight: (theme) =>
-            `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(
-              5
-            )} - ${COLUM_HEADR_HEIGHT} - ${COLUM_FOOTER_HEIGHT})`,
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: '#ced0da'
-          },
-          '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: '#ced0da',
-            borderRadius: '8px'
-          }
-        }}
-      >
-        <Card
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
-            overflow: 'unset'
-          }}
-        >
-          <CardMedia
-            sx={{ height: 140 }}
-            image="https://mui.com/static/images/cards/contemplative-reptile.jpg"
-            title="green iguana"
-          />
-          <CardContent sx={{ p: 1.5 }}>
-            <Typography>Lizard</Typography>
-          </CardContent>
-          <CardActions sx={{ p: '0 4px 8px 4px' }}>
-            <Button size="small" startIcon={<GroupIcon />}>
-              20
-            </Button>
-            <Button size="small" startIcon={<ChatBubbleIcon />}>
-              12
-            </Button>
-            <Button size="small" startIcon={<AttachmentIcon />}>
-              3
-            </Button>
-          </CardActions>
-        </Card>
-        <Card
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
-            overflow: 'unset'
-          }}
-        >
-          <CardContent sx={{ p: 1.5 }}>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-        <Card
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
-            overflow: 'unset'
-          }}
-        >
-          <CardContent sx={{ p: 1.5 }}>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>{' '}
-        <Card
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
-            overflow: 'unset'
-          }}
-        >
-          <CardContent sx={{ p: 1.5 }}>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>{' '}
-        <Card
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
-            overflow: 'unset'
-          }}
-        >
-          <CardContent sx={{ p: 1.5 }}>
-            <Typography gutterBottom component="div">
-              Lizard
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>{' '}
-        <Card
-          sx={{
-            cursor: 'pointer',
-            boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
-            overflow: 'unset'
-          }}
-        >
-          <CardContent sx={{ p: 1.5 }}>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Share</Button>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-      </Box>
+
+      {/* List cards */}
+      <ListCards />
 
       {/* Footer */}
       <Box
         sx={{
-          height: COLUM_FOOTER_HEIGHT,
+          height: (theme) => theme.trelloCustom.columnFooterHeight,
           p: 2, // 16px
           display: 'flex',
           alignItems: 'center',

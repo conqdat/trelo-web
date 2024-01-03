@@ -4,13 +4,8 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
-import theme from '../../theme'
 import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightness'
-import {
-  Experimental_CssVarsProvider as CssVarsProvider,
-  experimental_extendTheme as extendTheme,
-  useColorScheme
-} from '@mui/material/styles'
+import { useColorScheme } from '@mui/material/styles'
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme()
