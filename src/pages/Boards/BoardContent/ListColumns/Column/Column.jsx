@@ -17,8 +17,11 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import ListCards from './ListCards/ListCards'
+import { mapOrder } from '../../../../../utils/sorts'
 
 function Column({ column }) {
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const open = Boolean(anchorEl)
@@ -128,7 +131,7 @@ function Column({ column }) {
       </Box>
 
       {/* List cards */}
-      <ListCards cards={column?.cards} />
+      <ListCards cards={orderedCards} />
 
       {/* Footer */}
       <Box
