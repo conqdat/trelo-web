@@ -18,7 +18,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 import ListCards from './ListCards/ListCards'
 
-function Column() {
+function Column({ column }) {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const open = Boolean(anchorEl)
@@ -61,7 +61,7 @@ function Column() {
             cursor: 'pointer'
           }}
         >
-          Colunm title
+          {column?.title}
         </Typography>
         <Box>
           <Tooltip title="Show Menu">
@@ -128,7 +128,7 @@ function Column() {
       </Box>
 
       {/* List cards */}
-      <ListCards />
+      <ListCards cards={column?.cards} />
 
       {/* Footer */}
       <Box
