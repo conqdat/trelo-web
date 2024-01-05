@@ -38,7 +38,8 @@ function Column({ column }) {
     useSortable({ id: column._id, data: { ...column } })
 
   const dndKitColumnStyles = {
-    transform: CSS.Transform.toString(transform),
+    touchAction: 'none',
+    transform: CSS.Translate.toString(transform),
     transition
   }
 
