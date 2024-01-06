@@ -34,137 +34,146 @@ function Column({ column }) {
     setAnchorEl(null)
   }
 
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: column._id, data: { ...column } })
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: column._id, data: { ...column } })
 
   const dndKitColumnStyles = {
     touchAction: 'none',
     transform: CSS.Translate.toString(transform),
-    transition
+    transition,
+    height: '100%',
+    opacity: isDragging ? 0.5 : 1
   }
 
   return (
-    <Box
-      ref={setNodeRef}
-      style={dndKitColumnStyles}
-      {...attributes}
-      {...listeners}
-      sx={{
-        minWidth: '300px',
-        minHeight: '300px',
-        bgcolor: (theme) =>
-          theme.palette.mode === 'dark' ? '#333' : '#ebecf0',
-        ml: 2,
-        borderRadius: '6px',
-        height: 'fit-content',
-        maxHeight: (theme) =>
-          `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(5)})`
-      }}
-    >
-      {/* Hearder  */}
+    <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
       <Box
+        {...listeners}
         sx={{
-          height: (theme) => theme.trelloCustom.columnHeaderHeight,
-          p: '0 5px',
-          m: '0 5px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
+          minWidth: '300px',
+          minHeight: '300px',
+          bgcolor: (theme) =>
+            theme.palette.mode === 'dark' ? '#333' : '#ebecf0',
+          ml: 2,
+          borderRadius: '6px',
+          height: 'fit-content',
+          maxHeight: (theme) =>
+            `calc(${theme.trelloCustom.boardContentHeight} - ${theme.spacing(
+              5
+            )})`
         }}
       >
-        <Typography
-          variant="h6"
+        {/* Hearder  */}
+        <Box
           sx={{
-            fontSize: '1rem',
-            fontWeight: 'bold',
-            cursor: 'pointer'
+            height: (theme) => theme.trelloCustom.columnHeaderHeight,
+            p: '0 5px',
+            m: '0 5px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
           }}
         >
-          {column?.title}
-        </Typography>
-        <Box>
-          <Tooltip title="Show Menu">
-            {' '}
-            <ExpandMoreIcon
-              sx={{ color: 'text.prmary', cursor: 'pointer' }}
-              id="basic-button-dropdown"
-              aria-controls={open ? 'basic-menu-workspaces' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-              onClick={handleClick}
-            />
-          </Tooltip>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              'aria-labelledby': 'basic-button-dropdown'
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              cursor: 'pointer'
             }}
           >
-            <MenuItem>
-              <ListItemIcon>
-                <AddBoxIcon fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Add New</ListItemText>
-            </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <ContentCut fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Cut</ListItemText>
-            </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <ContentCopy fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Copy</ListItemText>
-            </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <ContentPaste fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Paste</ListItemText>
-            </MenuItem>
-            <Divider />
-            <MenuItem>
-              <ListItemIcon>
-                <DeleteForeverIcon>
+            {column?.title}
+          </Typography>
+          <Box>
+            <Tooltip title="Show Menu">
+              {' '}
+              <ExpandMoreIcon
+                sx={{ color: 'text.prmary', cursor: 'pointer' }}
+                id="basic-button-dropdown"
+                aria-controls={open ? 'basic-menu-workspaces' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              />
+            </Tooltip>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button-dropdown'
+              }}
+            >
+              <MenuItem>
+                <ListItemIcon>
+                  <AddBoxIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Add New</ListItemText>
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <ContentCut fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Cut</ListItemText>
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <ContentCopy fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Copy</ListItemText>
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
+                  <ContentPaste fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Paste</ListItemText>
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                <ListItemIcon>
+                  <DeleteForeverIcon>
+                    <Cloud fontSize="small" />
+                  </DeleteForeverIcon>
+                </ListItemIcon>
+                <ListItemText>Remove column</ListItemText>
+              </MenuItem>
+              <MenuItem>
+                <ListItemIcon>
                   <Cloud fontSize="small" />
-                </DeleteForeverIcon>
-              </ListItemIcon>
-              <ListItemText>Remove column</ListItemText>
-            </MenuItem>
-            <MenuItem>
-              <ListItemIcon>
-                <Cloud fontSize="small" />
-              </ListItemIcon>
-              <ListItemText>Web Clipboard</ListItemText>
-            </MenuItem>
-          </Menu>
+                </ListItemIcon>
+                <ListItemText>Web Clipboard</ListItemText>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Box>
+
+        {/* List cards */}
+        <ListCards cards={orderedCards} />
+
+        {/* Footer */}
+        <Box
+          sx={{
+            height: (theme) => theme.trelloCustom.columnFooterHeight,
+            p: 2, // 16px
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Button startIcon={<AddBoxIcon />}>Add card</Button>
+          <Tooltip title="Drap to move">
+            <DragHandleIcon sx={{ cursor: 'pointer' }} />
+          </Tooltip>
         </Box>
       </Box>
-
-      {/* List cards */}
-      <ListCards cards={orderedCards} />
-
-      {/* Footer */}
-      <Box
-        sx={{
-          height: (theme) => theme.trelloCustom.columnFooterHeight,
-          p: 2, // 16px
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-      >
-        <Button startIcon={<AddBoxIcon />}>Add card</Button>
-        <Tooltip title="Drap to move">
-          <DragHandleIcon sx={{ cursor: 'pointer' }} />
-        </Tooltip>
-      </Box>
-    </Box>
+    </div>
   )
 }
 

@@ -7,8 +7,41 @@ import ChatBubbleIcon from '@mui/icons-material/ChatBubble'
 import AttachmentIcon from '@mui/icons-material/Attachment'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
+import * as React from 'react'
+
+import { mapOrder } from '../../../../../../../utils/sorts'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 function Card({ card }) {
+  const orderedCards = mapOrder(card?.cards, card?.cardOrderIds, '_id')
+
+  const [anchorEl, setAnchorEl] = React.useState(null)
+
+  const open = Boolean(anchorEl)
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: card._id, data: { ...card } })
+
+  const dndKitCardStyles = {
+    touchAction: 'none',
+    transform: CSS.Translate.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1
+  }
+
   const isShowCartActions = () => {
     return (
       !!card.memberIds?.length ||
@@ -19,6 +52,10 @@ function Card({ card }) {
 
   return (
     <MuiCard
+      ref={setNodeRef}
+      style={dndKitCardStyles}
+      {...attributes}
+      {...listeners}
       sx={{
         cursor: 'pointer',
         boxShadow: '0 1px 1px rgb(0, 0, 0, 0.2)',
