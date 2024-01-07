@@ -39,7 +39,8 @@ function Card({ card }) {
     touchAction: 'none',
     transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1
+    opacity: isDragging ? 0.5 : 1,
+    borders: isDragging ? '1px solid #3ecc71' : 1
   }
 
   const isShowCartActions = () => {
@@ -64,7 +65,7 @@ function Card({ card }) {
     >
       {card?.cover && <CardMedia sx={{ height: 140 }} image={card.cover} />}
       <CardContent sx={{ p: 1.5 }}>
-        <Typography>Lizard</Typography>
+        <Typography>{card.title}</Typography>
       </CardContent>
       {isShowCartActions() && (
         <CardActions sx={{ p: '0 4px 8px 4px' }}>

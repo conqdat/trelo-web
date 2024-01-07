@@ -70,11 +70,34 @@ function BoarContent({ board }) {
     )
     setActiveDragItemData(event?.active?.data?.current)
   }
+
+  const findColumnByCardId = (cardId) => {
+    return orderedColumns.find((column) =>
+      column.cards.map((card) => card._id).includes(cardId)
+    )
+  }
+
+  const handleDragOver = (event) => {
+    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) return
+    const { active, over } = event
+    if (!over || !active) return
+    const {
+      id: activeDraggingCardID,
+      data: { current: activeDraggingCardData }
+    } = active
+    const { id: overCardId } = over
+
+    const activeDraggingColumn = findColumnByCardId(activeDraggingCardID)
+    const overColumn = findColumnByCardId(overCardId)
+    console.log(activeDraggingColumn, overColumn)
+  }
+
   return (
     <DndContext
-      onDragEnd={handleDragEnd}
       sensors={sensors}
       onDragStart={handlOnDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
     >
       <Box
         sx={{
