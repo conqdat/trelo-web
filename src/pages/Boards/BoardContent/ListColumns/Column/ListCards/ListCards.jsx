@@ -3,6 +3,11 @@ import Card from '../ListCards/Card/Card'
 const COLUM_FOOTER_HEIGHT = '56px'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
+const ACTIVE_DRAG_ITEM_TYPE = {
+  COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
+  CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
+}
+
 function ListCards({ cards }) {
   return (
     <SortableContext

@@ -114,7 +114,7 @@ function BoarContent({ board }) {
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (
             <Column column={activeDragItemData} />
           )}
-          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && (
             <Card card={activeDragItemData} />
           )}
         </DragOverlay>
