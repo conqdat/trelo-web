@@ -73,23 +73,22 @@ function BoarContent({ board }) {
 
   const findColumnByCardId = (cardId) => {
     return orderedColumns.find((column) =>
-      column.cards.map((card) => card._id).includes(cardId)
+      column.cards.map((card) => card._id)?.includes(cardId)
     )
   }
 
   const handleDragOver = (event) => {
-    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD) return
+    if (activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN) return
     const { active, over } = event
     if (!over || !active) return
     const {
       id: activeDraggingCardID,
       data: { current: activeDraggingCardData }
     } = active
-    const { id: overCardId } = over
+    const { id: overCardId } = over // overCardId là id của column chứa card đang drag
 
     const activeDraggingColumn = findColumnByCardId(activeDraggingCardID)
     const overColumn = findColumnByCardId(overCardId)
-    console.log(activeDraggingColumn, overColumn)
   }
 
   return (
