@@ -8,7 +8,8 @@ import {
   useSensors,
   MouseSensor,
   TouchSensor,
-  DragOverlay
+  DragOverlay,
+  closestCorners
 } from '@dnd-kit/core'
 import { useEffect, useState } from 'react'
 import { arrayMove } from '@dnd-kit/sortable'
@@ -150,6 +151,7 @@ function BoarContent({ board }) {
   return (
     <DndContext
       sensors={sensors}
+      collisionDetection={closestCorners}
       onDragStart={handlOnDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
